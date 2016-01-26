@@ -1,0 +1,69 @@
+## Rubi JIT 編譯器的架構與設計原理
+
+[[Rubi JIT 編譯器]](https://github.com/embedded2015/rubi) 的專案網址如下：
+
+* <https://github.com/embedded2015/rubi>
+
+其專案首頁中包含了 Ｃ 語言原始碼 （含 *.c 與 *.h 檔) ，而 prog 資料夾內包含了十幾個 *.rb 的範例程式檔。
+
+![[]](rubi_project.png)
+
+在本文中，我們將講解整體的程式碼架構。
+
+主程式 main() 位於 [engine.c](https://github.com/embedded2015/rubi/blob/master/engine.c) 當中，在 main() 的最後一行呼叫了 execute() 函數，這才是真正重要的主角，其原始碼如下：
+
+```
+static int execute(char *source)
+{
+    init();
+    lex(source);
+    parser();
+    ((int (*)(int *, void **)) ntvCode)(0, funcTable);
+    dispose();
+    return 0;
+}
+
+int main(int argc, char **argv) {
+    char *src;
+...
+    fread(src, sizeof(char), ssz, fp);
+...
+    return execute(src);
+}
+```
+
+函數 execute 的參數 source 是被執行的原始碼。舉例而言，如果您使用 `./rubi progs/pi.rb` 來執行 pi.rb 程式，那麼 source 就會是 pi.rb 的原始碼字串。
+
+一個極簡編譯器通常可分為三步驟，首先是『詞彙解析』 lex(source) ， 接著是『語法剖析』 parser()， 最後是『程式碼產生』 codegen()。
+
+但是在 rubi JIT 編譯器中，由於是立即執行，因此在 parser() 裡面一邊 parse 一邊就開始進行『程式碼產生』 的動作，而且 rubi 直接產生的機器碼形式的目的碼，這些機器碼會直接被放入 ntvCode 這個變數中，最後直接把 ntvCode 轉型為函數指標，利用以下的呼叫開始執行該『機器碼』段落。
+
+```
+((int (*)(int *, void **)) ntvCode)(0, funcTable);
+```
+
+這樣，就完成了整個 Rubi JIT compiler 的核心流程。 
+
+在 [asm.h](https://github.com/embedded2015/rubi/blob/master/asm.h) 檔案中宣告了 ntvCode 所需要的相關變數與函數，以下是其關鍵性的程式碼。
+
+```
+unsigned char *ntvCode;
+int ntvCount;
+
+enum { EAX = 0, ECX, EDX, EBX, ESP, EBP, ESI, EDI };
+
+static inline void emit(unsigned char val)
+{
+    ntvCode[ntvCount++] = (val);
+}
+....
+```
+
+現在只剩下一個關鍵性問題， parser 到底是如何產生出機器碼的呢？ 而產生的機器碼又長得什麼樣呢？
+
+關於這個問題，我們將在下一篇文章中再來討論並說明。
+
+
+
+
+

@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<script src="../../gospa.js"></script>
+<title> 陳鍾誠  / 教科書  / C 語言 / 結構的初始化 — (Initialization) 直接設定欄位初始值</title>
+
+ [[陳鍾誠]](ccc:home)  / [[教科書]](book:home)  / [[C 語言]](c:home) 
+
+<h2 id="initialization">結構的初始化 — (Initialization) 直接設定欄位初始值</h2>
+
+<h3 id="">程式範例</h3>
+
+<pre><code class="CPP">#include &lt;stdio.h&gt;
+
+typedef struct {
+    char *name;
+    int age;
+} person;
+
+int main() {
+    person p = {
+      .name = "John",
+      .age = 40
+    };
+
+    printf("%s is %d years old", p.name, p.age);
+}
+</code></pre>
+
+<h3 id="">執行結果</h3>
+
+<pre><code>D:\cp\code&gt;gcc structInit.c -o structInit
+
+D:\cp\code&gt;structInit
+John is 40 years old
+</code></pre>
+
+</body>
+</html>

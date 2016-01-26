@@ -1,0 +1,28 @@
+# 小時鐘
+
+本範例簡化自： <http://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock>
+
+範例： [clock.html](http://ccc.nqu.edu.tw/db/jsb/code/clock.html)
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div id="time"></div>
+<script>
+function showTime() {
+    var now=new Date();
+    var h=now.getHours();
+    var m=now.getMinutes();
+    var s=now.getSeconds();
+    document.getElementById('time').innerHTML = h+":"+m+":"+s;
+    setTimeout(showTime,1000);
+}
+
+showTime();
+</script>
+</body>
+</html>
+```

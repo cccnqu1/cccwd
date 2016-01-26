@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<script src="../../gospa.js"></script>
+<title> 程式人雜誌  / 2015年11月號 / 編輯小語</title>
+
+ [[程式人雜誌]](pmag:home)  / [[2015年11月號]](pmag201511:home) 
+
+<h2 id="">編輯小語</h2>
+
+<p>在今天，立即編譯技術 (JIT, Just in Time Compiler) 已經在資訊領域扮演了舉足輕重的角色，Java 內建了將 ByteCode 轉換成機器碼的 JIT 技術。Google 的 V8 引擎出現，也讓 JIT 技術進入了瀏覽器內，讓執行速度變得更快。另外 V8 也導致了 node.js 的出現，並讓我們能在 server 端撰寫速度飛快的 JavaScript 程式，這讓  JavaScript 一躍成為速度最快的動態語言之一。</p>
+
+<p>但是，我總是搞不懂即編譯技術到底是怎麼實施的，雖然開源的立即編譯器已經很多了，但是通常都規模龐大，不知該從哪開始閱讀起。</p>
+
+<p>幸運的是，我的朋友 jserv 給了我們一份極小的開源 JIT 編譯器，讓我們可以從中理解 JIT 技術的實施方式，這個 JIT 編譯器稱為 rubi ，可以用來編譯並執行一種簡化語法的 *.rb 程式。</p>
+
+<p><a href="https://github.com/embedded2015/rubi">Rubi JIT 編譯器</a> 的原始碼很精簡，不含定義檔的話，只有 700 行的 C 程式碼，這給了我們研究 JIT 技術的一個很好起點。</p>
+
+<p>因此，在本期的程式人雜誌中，我們將會透過研究 Rubi JIT 編譯器來瞭解此一神秘的技術領域，且讓我們拭目以待。</p>
+
+<p>---- （「少年科技人雜誌」與「程式人雜誌」編輯 - 陳鍾誠）</p>
+
+</body>
+</html>

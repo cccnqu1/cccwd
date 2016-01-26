@@ -1,0 +1,85 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<script src="../../gospa.js"></script>
+<title> 陳鍾誠  / 教科書  / JavaScript 前端技術 / 網頁畫布 Canvas</title>
+
+ [[陳鍾誠]](ccc:home)  / [[教科書]](book:home)  / [[JavaScript 前端技術]](jsb:home) 
+
+<h1 id="canvas">網頁畫布 Canvas</h1>
+
+<h2 id="">參考文獻</h2>
+
+<ul>
+<li>重要： <a href="https://developer.mozilla.org/zh-TW/docs/Web/Guide/HTML/Canvas_tutorial">MDN : Canvas 教學文件</a></li>
+<li>讚！ <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-images/">HTML5 Canvas Image Tutorial</a></li>
+<li><a href="http://www.w3schools.com/tags/canvas_drawimage.asp">http://www.w3schools.com/tags/canvas_drawimage.asp</a></li>
+<li><a href="http://blog.ring.idv.tw/comment.ser?i=386">淺談Canvas - save/restore</a></li>
+</ul>
+
+<h2 id="html5canvasimagetutorialhttpwwwhtml5canvastutorialscomtutorialshtml5canvasimages"><a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-images/">HTML5 Canvas Image Tutorial</a> 的範例</h2>
+
+<p>範例 1 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-line-width/">http://www.html5canvastutorials.com/tutorials/html5-canvas-line-width/</a></p>
+
+<p>範例 2 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-line-caps/">http://www.html5canvastutorials.com/tutorials/html5-canvas-line-caps/</a></p>
+
+<p>範例 3 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-circles/">http://www.html5canvastutorials.com/tutorials/html5-canvas-circles/</a></p>
+
+<p>範例 4 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/">http://www.html5canvastutorials.com/tutorials/html5-canvas-rectangles/</a></p>
+
+<p>範例 5 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-transform-rotate-tutorial/">http://www.html5canvastutorials.com/advanced/html5-canvas-transform-rotate-tutorial/</a></p>
+
+<p>範例 6 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-text-color/">http://www.html5canvastutorials.com/tutorials/html5-canvas-text-color/</a></p>
+
+<p>範例 7 ： <a href="http://www.html5canvastutorials.com/tutorials/html5-canvas-images/">http://www.html5canvastutorials.com/tutorials/html5-canvas-images/</a></p>
+
+<p>範例 8 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-invert-image-colors-tutorial/">http://www.html5canvastutorials.com/advanced/html5-canvas-invert-image-colors-tutorial/</a></p>
+
+<p>範例 9 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-grayscale-image-colors-tutorial/">http://www.html5canvastutorials.com/advanced/html5-canvas-grayscale-image-colors-tutorial/</a></p>
+
+<p>範例 10 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-save-drawing-as-an-image/">http://www.html5canvastutorials.com/advanced/html5-canvas-save-drawing-as-an-image/</a></p>
+
+<p>範例 11 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-animation-stage/">http://www.html5canvastutorials.com/advanced/html5-canvas-animation-stage/</a></p>
+
+<p>範例 12 ： <a href="http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/">http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/</a></p>
+
+<h2 id="">我的綜合範例</h2>
+
+<p>範例 ：  <a href="db/jsb/code/canvas/canvas.html" class="innerLink">canvas.html</a></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" width="220" height="277" src="ball.jpg" alt="The Scream" style="display:none"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="240" height="297" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+window.onload = function() {
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  var img = document.getElementById("ball");
+  ctx.drawImage(img, 10, 100);
+  ctx.beginPath();
+  ctx.strokeStyle="red";
+  ctx.rect(20,20,40,40);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.fillStyle="#0000FF";
+  ctx.fillRect(80,20,50,50);
+  ctx.stroke();   
+  ctx.beginPath();
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 5;
+  ctx.arc(100,75,50,0,2*Math.PI);
+  ctx.stroke();   
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+</body>
+</html>

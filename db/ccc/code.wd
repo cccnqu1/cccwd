@@ -1,0 +1,11 @@
+# 陳鍾誠的程式作品
+
+| 連結 | 說明 | 原始碼 |
+|--------|-----------|--------|
+| [wikidown](/) |  維基型網誌 = wiki+markdown   |  [github](https://github.com/ccckmit/wikidown.js)  |
+| [jslab](web/jslab/jslab.html) |  JavaScript 的科學計算平台，類似 R 軟體  | [github](https://github.com/ccckmit/jslab/) |
+| [elearn](web/elearn/elearn.html)   |  英文單字學習  | [github](https://github.com/ccckmit/elearn/) |
+| [mt](web/elearn/mt.html)   |  英漢逐字翻譯  | [github](https://github.com/ccckmit/elearn/) |
+| [lmt](web/lowan/web/lmt.html)   | 邏輯語翻譯系統  | [github](https://github.com/ccckmit/lowan/) |
+| [lwide](web/lowan/web/lwide.html)   | 邏輯萬國語的寫作 IDE 系統  | [github](https://github.com/ccckmit/lowan/) |
+| [baji](web/baji/web/ide.html)   | 八極語的寫作 IDE 系統  | [github](https://github.com/cccnqu1/baji) |

@@ -1,0 +1,102 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<script src="../../gospa.js"></script>
+<title> 陳鍾誠  / 教科書  / JavaScript 前端技術 / 遊戲設計 -- 移動球</title>
+
+ [[陳鍾誠]](ccc:home)  / [[教科書]](book:home)  / [[JavaScript 前端技術]](jsb:home) 
+
+<h1 id="">遊戲設計 -- 移動球</h1>
+
+<h2 id="">參考文獻</h2>
+
+<ul>
+<li>maxwihlborg -- 怎麼用 Canvas 寫遊戲的教學影片！
+<ul><li>首頁： <a href="http://maxwihlborg.com/experiments/">http://maxwihlborg.com/experiments/</a></li>
+<li>程式專案： <a href="https://github.com/maxwihlborg/youtube-tutorials/">https://github.com/maxwihlborg/youtube-tutorials/</a></li>
+<li>線上展示： <a href="http://www.maxwihlborg.com/youtube-demos/">http://www.maxwihlborg.com/youtube-demos/</a></li>
+<li>影片： <a href="https://www.youtube.com/playlist?list=PLDu4C7CHISoKbi-do2VKUfS6cv36C57y4">https://www.youtube.com/playlist?list=PLDu4C7CHISoKbi-do2VKUfS6cv36C57y4</a></li>
+<li>原始碼： <a href="https://github.com/maxwihlborg/youtube-tutorials">https://github.com/maxwihlborg/youtube-tutorials</a></li></ul></li>
+</ul>
+
+<h2 id="">範例一 : 移動球 (不順暢)</h2>
+
+<p>檔案： <a href="db/jsb/code/canvas/ballmove1.html" class="innerLink">ballmove1.html</a></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" src="ball.jpg" alt="The Scream"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+var img, ctx, canvas;
+var x=0, y=0;
+
+window.onload = function() {
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  img = document.getElementById("ball");
+  setTimeout(draw, 100);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, x, y);
+  x+=10; y+=10;
+  setTimeout(draw, 100);  
+}
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2 id="">範例二 : 移動球 (順暢)</h2>
+
+<p>檔案： <a href="db/jsb/code/canvas/ballmove2.html" class="innerLink">ballmove2.html</a></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;img id="ball" src="ball.jpg" alt="The Scream" style="display:none"&gt;
+&lt;p&gt;Canvas:&lt;/p&gt;
+&lt;canvas id="myCanvas" width="240" height="297" style="border:1px solid #d3d3d3;"/&gt;
+&lt;script&gt;
+var img, ctx, canvas;
+var x=0, y=0;
+
+window.onload = main;
+
+function update() {
+  x+=2; y+=2;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, x, y);
+}
+
+function main() {
+  img = document.getElementById("ball");
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+  var loop = function() {
+    update();
+    draw();
+    window.requestAnimationFrame(loop, canvas);
+  };
+  window.requestAnimationFrame(loop, canvas);
+}
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+</body>
+</html>

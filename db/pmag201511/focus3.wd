@@ -1,0 +1,78 @@
+## Rubi JIT 編譯器的 lexer
+
+要理解『剖析器』 (parser) 之前，得先理解『詞彙解析程式』 lexer ，因為 lexer 的輸出會成為 parser 的輸入。
+
+以下是位於 [engine.c](https://github.com/embedded2015/rubi/blob/master/engine.c) 裡面的『詞彙解析程式』(lex)， 您可以看到該程式從頭到尾掃描整個 rubi 的原始程式 code，取出數字 (number)，名稱 (ident)，空白 (space or tab) 與運算符號 `=+-` 等等基本詞彙，然後放入詞彙陣列 tok 當中。
+
+```CPP
+int32_t lex(char *code)
+{
+    int32_t codeSize = strlen(code), line = 1;
+    int32_t is_crlf = 0;
+
+    for (int32_t i = 0; i < codeSize; i++) {
+        if (tok.size <= i)
+            tok.tok = realloc(tok.tok, (tok.size += 512 * sizeof(Token)));
+        if (isdigit(code[i])) { // number?
+            for (; isdigit(code[i]); i++)
+                strncat(tok.tok[tok.pos].val, &(code[i]), 1);
+            tok.tok[tok.pos].nline = line;
+            i--;
+            tok.pos++;
+        } else if (isalpha(code[i])) { // ident?
+            char *str = tok.tok[tok.pos].val;
+            for (; isalpha(code[i]) || isdigit(code[i]) || code[i] == '_'; i++)
+                *str++ = code[i];
+            tok.tok[tok.pos].nline = line;
+            i--;
+            tok.pos++;
+        } else if (code[i] == ' ' || code[i] == '\t') { // space or tab?
+        } else if (code[i] == '#') { // comment?
+            for (i++; code[i] != '\n'; i++) { } line++;
+        } else if (code[i] == '"') { // string?
+            strcpy(tok.tok[tok.pos].val, "\"");
+            tok.tok[tok.pos++].nline = line;
+            for (i++; code[i] != '"' && code[i] != '\0'; i++)
+                strncat(tok.tok[tok.pos].val, &(code[i]), 1);
+            tok.tok[tok.pos].nline = line;
+            if (code[i] == '\0')
+                error("%d: expected expression '\"'",
+                      tok.tok[tok.pos].nline);
+            tok.pos++;
+        } else if (code[i] == '\n' ||
+                   (is_crlf = (code[i] == '\r' && code[i + 1] == '\n'))) {
+            i += is_crlf;
+            strcpy(tok.tok[tok.pos].val, ";");
+            tok.tok[tok.pos].nline = line++;
+            tok.pos++;
+        } else {
+            strncat(tok.tok[tok.pos].val, &(code[i]), 1);
+            if (code[i + 1] == '=' || (code[i] == '+' && code[i + 1] == '+') ||
+                (code[i] == '-' && code[i + 1] == '-'))
+                strncat(tok.tok[tok.pos].val, &(code[++i]), 1);
+            tok.tok[tok.pos].nline = line;
+            tok.pos++;
+        }
+    }
+    tok.tok[tok.pos].nline = line;
+    tok.size = tok.pos - 1;
+
+    return 0;
+}
+```
+
+而『詞彙陣列』 (tok) 的相關結構則定義在 [rubi.h](https://github.com/embedded2015/rubi/blob/master/rubi.h) 這的檔案中，其定義如下：
+
+```CPP
+typedef struct { char val[32]; int nline; } Token;
+struct {
+    Token *tok;
+    int size, pos;
+} tok;
+```
+
+執行完 lex() 函數之後，詞彙陣列 tok 就會被建構完成，裡面包含了『詞彙字串』與『詞彙出現的行號』等等資訊，接下來這個 tok 陣列就成了 parser 的輸入。
+
+讓我們在下一篇文章中看看 Rubi JIT compiler 中的 parser 設計原理。
+
+
